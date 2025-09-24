@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamWell Initiative</title>
+    <link rel="icon" type="image/x-icon" href="Assets/mascot.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #FDF9F8; /* Creamy off-white */
+        }
+        h1, h2, h3 {
+            font-family: 'Lora', serif;
+        }
+        /* Custom colors based on your Instagram palette */
+        .bg-dream-purple { background-color: #D4C9E6; }
+        .bg-dream-pink { background-color: #F1E4E8; }
+        .text-dream-brown { color: #6B5E63; }
+        .border-dream-brown { border-color: #6B5E63; }
+        .hover-bg-dream-brown:hover { background-color: #6B5E63; }
+        .hover-text-dream-pink:hover { color: #F1E4E8; }
+        .shadow-dream { box-shadow: 0 10px 15px -3px rgba(107, 94, 99, 0.1), 0 4px 6px -2px rgba(107, 94, 99, 0.05); }
+
+        /* Dynamic Background Animation */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-gradient {
+            background: linear-gradient(-45deg, #f1e4e8, #d4c9e6, #fdf9f8, #f1e4e8);
+            background-size: 400% 400%;
+            animation: gradientAnimation 20s ease infinite; /* Changed to loop infinitely */
+        }
+
+        /* Scroll-in Animations */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Team Member Modal Styles */
+        #team-modal-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #team-modal {
+            transition: transform 0.3s ease-in-out;
+        }
+        #team-modal-overlay.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #team-modal-overlay.is-visible #team-modal {
+            transform: scale(1);
+        }
+
+        /* Blinking Cursor for Typing Animation */
+        #typing-text-cursor {
+            animation: blink .75s step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #6B5E63; }
+        }
+
+        .play-icon-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-dream-brown">
+
+    <!-- Header -->
+    <header class="bg-dream-pink/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-dream-brown flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud-moon"><path d="M12 21H12.01"/><path d="M2.572 13.5a9 9 0 1 1 10.913 10.418"/><path d="M8 16a4 4 0 0 0 7.99-2.023A3 3 0 0 0 14.5 8H13A5 5 0 0 0 8 13z"/></svg>
+                DreamWell Initiative
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#articles" class="hover:text-gray-500 transition-colors">Articles</a>
+                <a href="#what-we-do" class="hover:text-gray-500 transition-colors">What We Do</a>
+                <a href="#reels" class="hover:text-gray-500 transition-colors">Reels</a>
+                <a href="#team" class="hover:text-gray-500 transition-colors">Our Team</a>
+                <a href="#contact" class="hover:text-gray-500 transition-colors">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#articles" class="block py-2 hover:text-gray-500">Articles</a>
+            <a href="#what-we-do" class="block py-2 hover:text-gray-500">What We Do</a>
+            <a href="#reels" class="block py-2 hover:text-gray-500">Reels</a>
+            <a href="#team" class="block py-2 hover:text-gray-500">Our Team</a>
+            <a href="#contact" class="block py-2 hover:text-gray-500">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-[70vh] flex items-center animated-gradient py-20">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-12 text-center md:text-left">
+                    <!-- Image Column -->
+                    <div class="w-48 md:w-64 flex-shrink-0">
+                        <img src="Assets/mascot.jpg" alt="DreamWell Initiative Mascot" class="rounded-full shadow-dream border-8 border-white/50">
+                    </div>
+                    <!-- Text Column -->
+                    <div class="max-w-2xl">
+                        <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Welcome to the DreamWell Initiative</h1>
+                        <p class="text-lg md:text-xl mb-4">✮⋆˙ A student-led nonprofit dedicated to the importance of sleep and combating sleep deprivation. ⋆˙⟡</p>
+                        <!-- Typing animation container -->
+                        <p class="text-md md:text-lg text-dream-brown/90 h-12 md:h-6 mb-8 font-medium">
+                            <span id="typing-text"></span><span id="typing-text-cursor" class="border-r-2 border-dream-brown"></span>
+                        </p>
+                        <a href="#articles" class="bg-dream-purple text-dream-brown font-bold py-3 px-8 rounded-full hover-bg-dream-brown hover-text-dream-pink transition-all duration-300 transform hover:scale-105 shadow-lg">Explore Articles</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Do Section -->
+        <section id="what-we-do" class="py-20 bg-dream-pink">
+            <div class="container mx-auto px-6 fade-in-element">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">What We Do</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+                    <!-- Item 1: Educate -->
+                    <div class="text-center p-6 bg-white/50 rounded-2xl shadow-dream">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-dream-purple mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open-text text-dream-brown"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/><path d="M6 8h2"/><path d="M6 12h2"/><path d="M16 8h2"/><path d="M16 12h2"/></svg>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2">Educate & Inform</h3>
+                        <p class="text-gray-600">We create and share easy-to-understand articles, infographics, and resources about the science of sleep and its impact on well-being.</p>
+                    </div>
+                    <!-- Item 2: Advocate -->
+                    <div class="text-center p-6 bg-white/50 rounded-2xl shadow-dream">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-dream-purple mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-megaphone text-dream-brown"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2">Raise Awareness</h3>
+                        <p class="text-gray-600">Through social media campaigns and outreach, we aim to start conversations and combat the stigma of prioritizing rest in a fast-paced world.</p>
+                    </div>
+                    <!-- Item 3: Community -->
+                    <div class="text-center p-6 bg-white/50 rounded-2xl shadow-dream">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-dream-purple mx-auto mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users text-dream-brown"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h3 class="font-bold text-xl mb-2">Build Community</h3>
+                        <p class="text-gray-600">We foster a supportive community where students can share experiences, find encouragement, and learn healthy sleep habits together.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Articles Section
+        <section id="articles" class="py-20">
+            <div class="container mx-auto px-6 fade-in-element">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Latest Articles & Insights</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    
+                    <!-- Article Card 1
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-dream transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/D4C9E6/6B5E63?text=Dreamy+Illustration" alt="Article illustration" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2">What are the Impacts of Sleep Deprivation?</h3>
+                            <p class="text-gray-600 mb-4">Discover the hidden effects that a lack of sleep can have on your physical and mental health...</p>
+                            <a href="#" class="font-bold text-dream-brown hover:underline">Read More →</a>
+                        </div>
+                    </div>
+
+                    <!-- Article Card 2
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-dream transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/F1E4E8/6B5E63?text=Cozy+Vibes" alt="Article illustration" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2">Getting Ready for Back to School</h3>
+                            <p class="text-gray-600 mb-4">Tips and tricks to fix your sleep schedule before the new school year begins...</p>
+                            <a href="#" class="font-bold text-dream-brown hover:underline">Read More →</a>
+                        </div>
+                    </div>
+
+                    <!-- Article Card 3
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-dream transform hover:-translate-y-2 transition-transform duration-300">
+                        <img src="https://placehold.co/600x400/A08DA3/FDF9F8?text=Sweet+Dreams" alt="Article illustration" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl mb-2">DIY Dreams: How to Make a Sleep Sachet</h3>
+                            <p class="text-gray-600 mb-4">A fun and relaxing DIY project using lavender and chamomile to help you wind down...</p>
+                            <a href="#" class="font-bold text-dream-brown hover:underline">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section-->
+        
+        <!-- Instagram Reels Section -->
+        <section id="reels" class="py-20 bg-dream-purple/20">
+            <div class="container mx-auto px-6 fade-in-element">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">From Our Instagram</h2>
+                <div class="flex flex-wrap justify-center gap-6">
+                    
+                    <!-- Reel 1 -->
+                    <div class="reel-container cursor-pointer w-48 h-80 rounded-2xl overflow-hidden shadow-dream transform hover:-translate-y-2 transition-transform duration-300 group relative">
+                        <video loop muted playsinline class="w-full h-full object-cover" src="Assets/reel1.mp4" poster="Assets/thumbreel1.jpg"></video>
+                        <div class="play-icon-overlay absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play-circle opacity-80 group-hover:opacity-100 transform group-hover:scale-110 transition-transform"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16 10,8"/></svg>
+                        </div>
+                    </div>
+
+                    <!-- Reel 2 -->
+                    <div class="reel-container cursor-pointer w-48 h-80 rounded-2xl overflow-hidden shadow-dream transform hover:-translate-y-2 transition-transform duration-300 group relative">
+                        <!-- FIX: Added '=' to the src attribute -->
+                        <video loop muted playsinline class="w-full h-full object-cover" src="Assets/reel2.mp4" poster="Assets/thumbreel2.jpg"></video>
+                         <div class="play-icon-overlay absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play-circle opacity-80 group-hover:opacity-100 transform group-hover:scale-110 transition-transform"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16 10,8"/></svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Reel 3 -->
+                    <div class="reel-container cursor-pointer w-48 h-80 rounded-2xl overflow-hidden shadow-dream transform hover:-translate-y-2 transition-transform duration-300 group relative">
+                        <video loop muted playsinline class="w-full h-full object-cover" src="Assets/reel3.mp4" poster="Assets/thumbreel3.jpg"></video>
+                         <div class="play-icon-overlay absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-40 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play-circle opacity-80 group-hover:opacity-100 transform group-hover:scale-110 transition-transform"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16 10,8"/></svg>
+                        </div>
+                    </div>
+
+                </div>
+                 <div class="text-center mt-12">
+                    <a href="https://www.instagram.com/dreamwell.initiative/reels/" target="_blank" rel="noopener noreferrer" class="bg-white text-dream-brown font-bold py-3 px-8 rounded-full hover-bg-dream-brown hover-text-dream-pink transition-all duration-300 transform hover:scale-105 shadow-lg border-2 border-dream-purple">
+                        View All Reels
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="py-20 bg-dream-pink">
+            <div class="container mx-auto px-6 fade-in-element">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Meet the Dream Team</h2>
+                <div class="flex flex-wrap justify-center gap-10">
+                    
+                    <!-- Team Member 1 -->
+                    <div class="team-member text-center cursor-pointer" data-name="Jane Doe" data-title="Founder" data-img-src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Jane" data-description="Jane is the visionary behind DreamWell. When she's not advocating for better sleep, you can find her curled up with a good book and a cup of chamomile tea. She believes a well-rested world is a happier world.">
+                        <img src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Jane" alt="Team Member Jane Doe" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg pointer-events-none">
+                        <h3 class="font-bold text-lg pointer-events-none">Jane Doe</h3>
+                        <p class="text-gray-600 pointer-events-none">Founder</p>
+                    </div>
+
+                    <!-- Team Member 2 -->
+                    <div class="team-member text-center cursor-pointer" data-name="John Smith" data-title="Content Lead" data-img-src="https://placehold.co/150x150/D4C9E6/6B5E63?text=John" data-description="John is our resident wordsmith, turning complex sleep science into engaging articles. He's a night owl trying to reform his ways and is powered by coffee and a passion for storytelling.">
+                        <img src="https://placehold.co/150x150/D4C9E6/6B5E63?text=John" alt="Team Member John Smith" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg pointer-events-none">
+                        <h3 class="font-bold text-lg pointer-events-none">John Smith</h3>
+                        <p class="text-gray-600 pointer-events-none">Content Lead</p>
+                    </div>
+
+                    <!-- Team Member 3 -->
+                    <div class="team-member text-center cursor-pointer" data-name="Emily White" data-title="Design & Outreach" data-img-src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Emily" data-description="Emily creates all the dreamy visuals you see on our site and social media. An early bird, she finds inspiration in sunrises and believes good design can make learning about sleep a beautiful experience.">
+                        <img src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Emily" alt="Team Member Emily White" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg pointer-events-none">
+                        <h3 class="font-bold text-lg pointer-events-none">Emily White</h3>
+                        <p class="text-gray-600 pointer-events-none">Design & Outreach</p>
+                    </div>
+                </div>
+                <!-- View All Members Button -->
+                <div class="text-center mt-12">
+                    <a href="hall_of_fame.html" class="bg-white text-dream-brown font-bold py-3 px-8 rounded-full hover-bg-dream-brown hover-text-dream-pink transition-all duration-300 transform hover:scale-105 shadow-lg border-2 border-dream-purple">
+                        View All Members
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6 text-center fade-in-element">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+                <p class="max-w-2xl mx-auto mb-8 text-lg">Have questions, ideas, or want to collaborate? We'd love to hear from you. Reach out to us via email or follow our journey on Instagram!</p>
+                <div class="flex justify-center items-center space-x-6">
+                    <!-- Email >
+                    <a href="mailto:dreamwell.initiative@example.com" class="flex items-center gap-2 bg-white p-4 rounded-xl shadow-dream hover-bg-dream-brown hover-text-dream-pink transition-all duration-300 transform hover:scale-105">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        Email Us
+                </a-->
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/dreamwell.initiative/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-white p-4 rounded-xl shadow-dream hover-bg-dream-brown hover-text-dream-pink transition-all duration-300 transform hover:scale-105">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        Follow Us
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer
+    <footer class="bg-dream-purple py-6">
+        <div class="container mx-auto px-6 text-center text-dream-brown">
+            <p>&copy; 2025 DreamWell Initiative. All Rights Reserved.</p>
+        </div>
+</footer-->
+    
+    <!-- Team Member Modal -->
+    <div id="team-modal-overlay" class="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center p-4 z-[60] opacity-0 pointer-events-none">
+        <div id="team-modal" class="bg-white rounded-2xl shadow-dream max-w-sm w-full p-6 text-center transform scale-95">
+            <!-- Content will be dynamically inserted here -->
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- Typing Text Animation ---
+            const typingTextElement = document.getElementById('typing-text');
+            const textArray = [
+                "Poor sleep can lead to health deterioration.",
+                "Quality rest improves concentration.",
+                "Sleep is crucial for a healthy immune system.",
+                "Good sleep enhances memory and learning.",
+                "Rest well to reduce stress levels."
+            ];
+            let textArrayIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentText = textArray[textArrayIndex];
+                const typeSpeed = isDeleting ? 75 : 150;
+
+                if (isDeleting) {
+                    typingTextElement.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingTextElement.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                if (!isDeleting && charIndex === currentText.length) {
+                    setTimeout(() => isDeleting = true, 2000);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    textArrayIndex = (textArrayIndex + 1) % textArray.length;
+                }
+                
+                setTimeout(type, typeSpeed);
+            }
+            
+            setTimeout(type, 1500);
+
+            // --- Mobile menu toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Scroll-in animations ---
+            const animatedElements = document.querySelectorAll('.fade-in-element');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(element => observer.observe(element));
+
+            // --- Team Member Modal Logic ---
+            const modalOverlay = document.getElementById('team-modal-overlay');
+            const modal = document.getElementById('team-modal');
+            const teamMembers = document.querySelectorAll('.team-member');
+
+            teamMembers.forEach(member => {
+                member.addEventListener('click', () => {
+                    const name = member.dataset.name;
+                    const title = member.dataset.title;
+                    const imgSrc = member.dataset.imgSrc;
+                    const description = member.dataset.description;
+
+                    modal.innerHTML = `
+                        <img src="${imgSrc}" alt="${name}" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-dream-pink shadow-lg">
+                        <h3 class="font-bold text-2xl text-dream-brown mb-1">${name}</h3>
+                        <p class="text-dream-brown mb-4">${title}</p>
+                        <p class="text-gray-600 text-sm">${description}</p>
+                    `;
+                    
+                    modalOverlay.classList.add('is-visible');
+                });
+            });
+
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('is-visible');
+                }
+            });
+
+            // --- Instagram Reels Playback ---
+            const reelContainers = document.querySelectorAll('.reel-container');
+
+            reelContainers.forEach(container => {
+                const video = container.querySelector('video');
+                const playIconOverlay = container.querySelector('.play-icon-overlay');
+
+                container.addEventListener('click', () => {
+                    // Pause all other videos
+                    reelContainers.forEach(otherContainer => {
+                        if (otherContainer !== container) {
+                            const otherVideo = otherContainer.querySelector('video');
+                            const otherOverlay = otherContainer.querySelector('.play-icon-overlay');
+                            if (!otherVideo.paused) {
+                                otherVideo.pause();
+                                otherOverlay.style.opacity = '1';
+                            }
+                        }
+                    });
+
+                    // Toggle play/pause for the clicked video
+                    if (video.paused) {
+                        video.play();
+                        video.muted = false; // Unmute on play
+                        playIconOverlay.style.opacity = '0';
+                    } else {
+                        video.pause();
+                        playIconOverlay.style.opacity = '1';
+                    }
+                });
+
+                video.addEventListener('play', () => {
+                    playIconOverlay.style.opacity = '0';
+                });
+                video.addEventListener('pause', () => {
+                    playIconOverlay.style.opacity = '1';
+                });
+                video.addEventListener('ended', () => {
+                    playIconOverlay.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
