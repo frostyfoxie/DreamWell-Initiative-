@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamWell Team Hall of Fame</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #FDF9F8; /* Creamy off-white */
+        }
+        h1, h2, h3 {
+            font-family: 'Lora', serif;
+        }
+        /* Custom colors based on your Instagram palette */
+        .bg-dream-purple { background-color: #D4C9E6; }
+        .bg-dream-pink { background-color: #F1E4E8; }
+        .text-dream-brown { color: #6B5E63; }
+        .border-dream-brown { border-color: #6B5E63; }
+        .hover-bg-dream-brown:hover { background-color: #6B5E63; }
+        .hover-text-dream-pink:hover { color: #F1E4E8; }
+        .shadow-dream { box-shadow: 0 10px 15px -3px rgba(107, 94, 99, 0.1), 0 4px 6px -2px rgba(107, 94, 99, 0.05); }
+
+        /* Dynamic Background Animation */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-gradient {
+            background: linear-gradient(-45deg, #f1e4e8, #d4c9e6, #fdf9f8, #f1e4e8);
+            background-size: 400% 400%;
+            animation: gradientAnimation 20s ease infinite; /* Changed to loop infinitely */
+        }
+
+        /* Scroll-in Animations */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Team Member Modal Styles */
+        #team-modal-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #team-modal {
+            transition: transform 0.3s ease-in-out;
+        }
+        #team-modal-overlay.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #team-modal-overlay.is-visible #team-modal {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="text-dream-brown">
+
+    <!-- Header -->
+    <header class="bg-dream-pink/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-dream-brown flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud-moon"><path d="M12 21H12.01"/><path d="M2.572 13.5a9 9 0 1 1 10.913 10.418"/><path d="M8 16a4 4 0 0 0 7.99-2.023A3 3 0 0 0 14.5 8H13A5 5 0 0 0 8 13z"/></svg>
+                DreamWell Initiative
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html#articles" class="hover:text-gray-500 transition-colors">Articles</a>
+                <a href="index.html#what-we-do" class="hover:text-gray-500 transition-colors">What We Do</a>
+                <a href="index.html#reels" class="hover:text-gray-500 transition-colors">Reels</a>
+                <a href="index.html#team" class="hover:text-gray-500 transition-colors">Our Team</a>
+                <a href="index.html#contact" class="hover:text-gray-500 transition-colors">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="index.html#articles" class="block py-2 hover:text-gray-500">Articles</a>
+            <a href="index.html#what-we-do" class="block py-2 hover:text-gray-500">What We Do</a>
+            <a href="index.html#reels" class="block py-2 hover:text-gray-500">Reels</a>
+            <a href="index.html#team" class="block py-2 hover:text-gray-500">Our Team</a>
+            <a href="index.html#contact" class="block py-2 hover:text-gray-500">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section for Hall of Fame -->
+        <section class="min-h-[50vh] flex items-center animated-gradient py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">The DreamWell Hall of Fame</h1>
+                <p class="text-lg md:text-xl mb-4">✮⋆˙ Celebrating the incredible individuals who have powered our mission. ⋆˙⟡</p>
+            </div>
+        </section>
+
+        <!-- Hall of Fame Content -->
+        <section class="py-20 bg-dream-pink">
+            <div class="container mx-auto px-6">
+                <!-- Session 2025-26 -->
+                <div class="fade-in-element mb-20">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Session: 2025-26</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-w-6xl mx-auto">
+                        <!-- Team Member 1 -->
+                        <div class="team-member text-center cursor-pointer" data-name="Jane Doe" data-title="Founder" data-img-src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Jane" data-description="Jane is the visionary behind DreamWell. When she's not advocating for better sleep, you can find her curled up with a good book and a cup of chamomile tea. She believes a well-rested world is a happier world.">
+                            <img src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Jane" alt="Team Member Jane Doe" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
+                            <h3 class="font-bold text-lg">Jane Doe</h3>
+                            <p class="text-gray-600">Founder</p>
+                        </div>
+                        <!-- Team Member 2 -->
+                        <div class="team-member text-center cursor-pointer" data-name="John Smith" data-title="Content Lead" data-img-src="https://placehold.co/150x150/F1E4E8/6B5E63?text=John" data-description="John is our resident wordsmith, turning complex sleep science into engaging articles. He's a night owl trying to reform his ways and is powered by coffee and a passion for storytelling.">
+                            <img src="https://placehold.co/150x150/F1E4E8/6B5E63?text=John" alt="Team Member John Smith" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
+                            <h3 class="font-bold text-lg">John Smith</h3>
+                            <p class="text-gray-600">Content Lead</p>
+                        </div>
+                        <!-- Team Member 3 -->
+                        <div class="team-member text-center cursor-pointer" data-name="Emily White" data-title="Design & Outreach" data-img-src="https://placehold.co/150x150/A08DA3/FDF9F8?text=Emily" data-description="Emily creates all the dreamy visuals you see on our site and social media. An early bird, she finds inspiration in sunrises and believes good design can make learning about sleep a beautiful experience.">
+                            <img src="https://placehold.co/150x150/A08DA3/FDF9F8?text=Emily" alt="Team Member Emily White" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
+                            <h3 class="font-bold text-lg">Emily White</h3>
+                            <p class="text-gray-600">Design & Outreach</p>
+                        </div>
+                        <!-- Add more members here -->
+                    </div>
+                </div>
+
+                <!-- Session 2024-25 -->
+                <div class="fade-in-element">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Session: 2024-25</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-w-6xl mx-auto">
+                        <!-- Past Team Member 1 -->
+                        <div class="team-member text-center cursor-pointer" data-name="Alex Chen" data-title="Past VP of Media" data-img-src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Alex" data-description="Alex spearheaded our media campaigns in the 2024-25 session, creating engaging content that reached thousands of students. A true creative mind who knows the power of a good night's sleep.">
+                            <img src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Alex" alt="Team Member Alex Chen" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
+                            <h3 class="font-bold text-lg">Alex Chen</h3>
+                            <p class="text-gray-600">Past VP of Media</p>
+                        </div>
+                        <!-- Past Team Member 2 -->
+                        <div class="team-member text-center cursor-pointer" data-name="Maria Rodriguez" data-title="Past Community Manager" data-img-src="https://placehold.co/150x150/F1E4E8/6B5E63?text=Maria" data-description="Maria was instrumental in building our online community, fostering a safe and supportive space for students to share their experiences and get advice. She's a passionate advocate for mental health and well-being.">
+                            <img src="https://placehold.co/150x150/F1E4E8/6B5E63?text=Maria" alt="Team Member Maria Rodriguez" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
+                            <h3 class="font-bold text-lg">Maria Rodriguez</h3>
+                            <p class="text-gray-600">Past Community Manager</p>
+                        </div>
+                        <!-- Add more past members here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dream-purple py-6">
+        <div class="container mx-auto px-6 text-center text-dream-brown">
+            <p>&copy; 2025 DreamWell Initiative. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Team Member Modal -->
+    <div id="team-modal-overlay" class="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center p-4 z-[60] opacity-0 pointer-events-none">
+        <div id="team-modal" class="bg-white rounded-2xl shadow-dream max-w-sm w-full p-6 text-center transform scale-95">
+            <!-- Content will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile menu toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Scroll-in animations ---
+            const animatedElements = document.querySelectorAll('.fade-in-element');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(element => observer.observe(element));
+
+            // --- Team Member Modal Logic ---
+            const modalOverlay = document.getElementById('team-modal-overlay');
+            const modal = document.getElementById('team-modal');
+            const teamMembers = document.querySelectorAll('.team-member');
+
+            teamMembers.forEach(member => {
+                member.addEventListener('click', () => {
+                    const name = member.dataset.name;
+                    const title = member.dataset.title;
+                    const imgSrc = member.dataset.img-src;
+                    const description = member.dataset.description;
+
+                    modal.innerHTML = `
+                        <img src="${imgSrc}" alt="${name}" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-dream-pink shadow-lg">
+                        <h3 class="font-bold text-2xl text-dream-brown mb-1">${name}</h3>
+                        <p class="text-dream-brown mb-4">${title}</p>
+                        <p class="text-gray-600 text-sm">${description}</p>
+                    `;
+                    
+                    modalOverlay.classList.add('is-visible');
+                });
+            });
+
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('is-visible');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
