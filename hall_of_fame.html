@@ -34,7 +34,7 @@
         .animated-gradient {
             background: linear-gradient(-45deg, #f1e4e8, #d4c9e6, #fdf9f8, #f1e4e8);
             background-size: 400% 400%;
-            animation: gradientAnimation 20s ease infinite; /* Changed to loop infinitely */
+            animation: gradientAnimation 20s ease infinite;
         }
 
         /* Scroll-in Animations */
@@ -54,14 +54,19 @@
             transition: opacity 0.3s ease-in-out;
         }
         #team-modal {
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        #team-modal-overlay:not(.is-visible) #team-modal {
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
         }
         #team-modal-overlay.is-visible {
             opacity: 1;
             pointer-events: auto;
         }
         #team-modal-overlay.is-visible #team-modal {
-            transform: scale(1);
+            opacity: 1;
+            transform: scale(1) translateY(0);
         }
     </style>
 </head>
@@ -71,11 +76,10 @@
     <header class="bg-dream-pink/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="text-2xl font-bold text-dream-brown flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud-moon"><path d="M12 21H12.01"/><path d="M2.572 13.5a9 9 0 1 1 10.913 10.418"/><path d="M8 16a4 4 0 0 0 7.99-2.023A3 3 0 0 0 14.5 8H13A5 5 0 0 0 8 13z"/></svg>
+                <!--svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud-moon"><path d="M12 21H12.01"/><path d="M2.572 13.5a9 9 0 1 1 10.913 10.418"/><path d="M8 16a4 4 0 0 0 7.99-2.023A3 3 0 0 0 14.5 8H13A5 5 0 0 0 8 13z"/></svg-->
                 DreamWell Initiative
             </a>
             <nav class="hidden md:flex space-x-8">
-                <a href="index.html#articles" class="hover:text-gray-500 transition-colors">Articles</a>
                 <a href="index.html#what-we-do" class="hover:text-gray-500 transition-colors">What We Do</a>
                 <a href="index.html#reels" class="hover:text-gray-500 transition-colors">Reels</a>
                 <a href="index.html#team" class="hover:text-gray-500 transition-colors">Our Team</a>
@@ -89,7 +93,6 @@
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="index.html#articles" class="block py-2 hover:text-gray-500">Articles</a>
             <a href="index.html#what-we-do" class="block py-2 hover:text-gray-500">What We Do</a>
             <a href="index.html#reels" class="block py-2 hover:text-gray-500">Reels</a>
             <a href="index.html#team" class="block py-2 hover:text-gray-500">Our Team</a>
@@ -102,8 +105,11 @@
         <!-- Hero Section for Hall of Fame -->
         <section class="min-h-[50vh] flex items-center animated-gradient py-20">
             <div class="container mx-auto px-6 text-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold mb-4">The DreamWell Hall of Fame</h1>
-                <p class="text-lg md:text-xl mb-4">✮⋆˙ Celebrating the incredible individuals who have powered our mission. ⋆˙⟡</p>
+                <!-- Added a max-width wrapper for better readability on large screens -->
+                <div class="max-w-3xl mx-auto">
+                    <h1 class="text-4xl md:text-6xl font-extrabold mb-4">The DreamWell Hall of Fame</h1>
+                    <p class="text-lg md:text-xl mb-4">✮⋆˙ Celebrating the incredible individuals who have powered our mission. ⋆˙⟡</p>
+                </div>
             </div>
         </section>
 
@@ -113,62 +119,71 @@
                 <!-- Session 2025-26 -->
                 <div class="fade-in-element mb-20">
                     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Session: 2025-26</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-w-6xl mx-auto">
+                    <!-- LAYOUT FIX: Replaced grid with flexbox for centered, responsive wrapping -->
+                    <div class="flex flex-wrap justify-center gap-10">
                         <!-- Team Member 1 -->
-                        <div class="team-member text-center cursor-pointer" data-name="Jane Doe" data-title="Founder" data-img-src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Jane" data-description="Jane is the visionary behind DreamWell. When she's not advocating for better sleep, you can find her curled up with a good book and a cup of chamomile tea. She believes a well-rested world is a happier world.">
+                        <div class="team-member text-center cursor-pointer w-full max-w-[280px] bg-white/50 p-6 rounded-2xl shadow-dream transform transition-transform duration-300 hover:scale-105" data-name="Jane Doe" data-title="Founder" data-img-src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Jane" data-description="Jane is the visionary behind DreamWell. When she's not advocating for better sleep, you can find her curled up with a good book and a cup of chamomile tea. She believes a well-rested world is a happier world.">
                             <img src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Jane" alt="Team Member Jane Doe" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
                             <h3 class="font-bold text-lg">Jane Doe</h3>
                             <p class="text-gray-600">Founder</p>
                         </div>
                         <!-- Team Member 2 -->
-                        <div class="team-member text-center cursor-pointer" data-name="John Smith" data-title="Content Lead" data-img-src="https://placehold.co/150x150/F1E4E8/6B5E63?text=John" data-description="John is our resident wordsmith, turning complex sleep science into engaging articles. He's a night owl trying to reform his ways and is powered by coffee and a passion for storytelling.">
+                        <div class="team-member text-center cursor-pointer w-full max-w-[280px] bg-white/50 p-6 rounded-2xl shadow-dream transform transition-transform duration-300 hover:scale-105" data-name="John Smith" data-title="Content Lead" data-img-src="https://placehold.co/150x150/F1E4E8/6B5E63?text=John" data-description="John is our resident wordsmith, turning complex sleep science into engaging articles. He's a night owl trying to reform his ways and is powered by coffee and a passion for storytelling.">
                             <img src="https://placehold.co/150x150/F1E4E8/6B5E63?text=John" alt="Team Member John Smith" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
                             <h3 class="font-bold text-lg">John Smith</h3>
                             <p class="text-gray-600">Content Lead</p>
                         </div>
                         <!-- Team Member 3 -->
-                        <div class="team-member text-center cursor-pointer" data-name="Emily White" data-title="Design & Outreach" data-img-src="https://placehold.co/150x150/A08DA3/FDF9F8?text=Emily" data-description="Emily creates all the dreamy visuals you see on our site and social media. An early bird, she finds inspiration in sunrises and believes good design can make learning about sleep a beautiful experience.">
+                        <div class="team-member text-center cursor-pointer w-full max-w-[280px] bg-white/50 p-6 rounded-2xl shadow-dream transform transition-transform duration-300 hover:scale-105" data-name="Emily White" data-title="Design & Outreach" data-img-src="https://placehold.co/150x150/A08DA3/FDF9F8?text=Emily" data-description="Emily creates all the dreamy visuals you see on our site and social media. An early bird, she finds inspiration in sunrises and believes good design can make learning about sleep a beautiful experience.">
                             <img src="https://placehold.co/150x150/A08DA3/FDF9F8?text=Emily" alt="Team Member Emily White" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
                             <h3 class="font-bold text-lg">Emily White</h3>
                             <p class="text-gray-600">Design & Outreach</p>
                         </div>
-                        <!-- Add more members here -->
                     </div>
                 </div>
 
-                <!-- Session 2024-25 -->
+                <!-- Session 2024-25
                 <div class="fade-in-element">
                     <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Session: 2024-25</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 max-w-6xl mx-auto">
-                        <!-- Past Team Member 1 -->
-                        <div class="team-member text-center cursor-pointer" data-name="Alex Chen" data-title="Past VP of Media" data-img-src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Alex" data-description="Alex spearheaded our media campaigns in the 2024-25 session, creating engaging content that reached thousands of students. A true creative mind who knows the power of a good night's sleep.">
+                     <!-- LAYOUT FIX: Replaced grid with flexbox for centered, responsive wrapping 
+                    <div class="flex flex-wrap justify-center gap-10">
+                        <!-- Past Team Member 1 
+                        <div class="team-member text-center cursor-pointer w-full max-w-[280px] bg-white/50 p-6 rounded-2xl shadow-dream transform transition-transform duration-300 hover:scale-105" data-name="Alex Chen" data-title="Past VP of Media" data-img-src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Alex" data-description="Alex spearheaded our media campaigns in the 2024-25 session, creating engaging content that reached thousands of students. A true creative mind who knows the power of a good night's sleep.">
                             <img src="https://placehold.co/150x150/D4C9E6/6B5E63?text=Alex" alt="Team Member Alex Chen" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
                             <h3 class="font-bold text-lg">Alex Chen</h3>
                             <p class="text-gray-600">Past VP of Media</p>
                         </div>
-                        <!-- Past Team Member 2 -->
-                        <div class="team-member text-center cursor-pointer" data-name="Maria Rodriguez" data-title="Past Community Manager" data-img-src="https://placehold.co/150x150/F1E4E8/6B5E63?text=Maria" data-description="Maria was instrumental in building our online community, fostering a safe and supportive space for students to share their experiences and get advice. She's a passionate advocate for mental health and well-being.">
+                        <!-- Past Team Member 2 
+                        <div class="team-member text-center cursor-pointer w-full max-w-[280px] bg-white/50 p-6 rounded-2xl shadow-dream transform transition-transform duration-300 hover:scale-105" data-name="Maria Rodriguez" data-title="Past Community Manager" data-img-src="https://placehold.co/150x150/F1E4E8/6B5E63?text=Maria" data-description="Maria was instrumental in building our online community, fostering a safe and supportive space for students to share their experiences and get advice. She's a passionate advocate for mental health and well-being.">
                             <img src="https://placehold.co/150x150/F1E4E8/6B5E63?text=Maria" alt="Team Member Maria Rodriguez" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-white shadow-lg">
                             <h3 class="font-bold text-lg">Maria Rodriguez</h3>
                             <p class="text-gray-600">Past Community Manager</p>
                         </div>
-                        <!-- Add more past members here -->
                     </div>
-                </div>
+                </div-->
             </div>
         </section>
     </main>
 
-    <!-- Footer
-    <footer class="bg-dream-purple py-6">
+    <!-- Footer -->
+    <footer class="bg-dream-purple py-12">
         <div class="container mx-auto px-6 text-center text-dream-brown">
-            <p>&copy; 2025 DreamWell Initiative. All Rights Reserved.</p>
+             <a href="index.html" class="text-xl font-bold text-dream-brown flex items-center justify-center gap-2 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cloud-moon"><path d="M12 21H12.01"/><path d="M2.572 13.5a9 9 0 1 1 10.913 10.418"/><path d="M8 16a4 4 0 0 0 7.99-2.023A3 3 0 0 0 14.5 8H13A5 5 0 0 0 8 13z"/></svg>
+                DreamWell Initiative
+            </a>
+            <p class="mb-4">Advocating for better sleep and well-being.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#" class="hover:opacity-75 transition-opacity"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a>
+                <!--a href="#" class="hover:opacity-75 transition-opacity"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.3 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a>
+                <a href="#" class="hover:opacity-75 transition-opacity"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a-->
+            </div>
         </div>
-    </footer-->
+    </footer>
 
     <!-- Team Member Modal -->
     <div id="team-modal-overlay" class="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center p-4 z-[60] opacity-0 pointer-events-none">
-        <div id="team-modal" class="bg-white rounded-2xl shadow-dream max-w-sm w-full p-6 text-center transform scale-95">
+        <div id="team-modal" class="bg-white rounded-2xl shadow-dream max-w-sm w-full p-6 text-center">
             <!-- Content will be dynamically inserted here -->
         </div>
     </div>
@@ -211,10 +226,13 @@
                 member.addEventListener('click', () => {
                     const name = member.dataset.name;
                     const title = member.dataset.title;
-                    const imgSrc = member.dataset.imgSrc; // Corrected from member.dataset.img-src
+                    const imgSrc = member.dataset.imgSrc;
                     const description = member.dataset.description;
 
                     modal.innerHTML = `
+                        <button id="close-modal-btn" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
                         <img src="${imgSrc}" alt="${name}" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-dream-pink shadow-lg">
                         <h3 class="font-bold text-2xl text-dream-brown mb-1">${name}</h3>
                         <p class="text-dream-brown mb-4">${title}</p>
@@ -222,10 +240,16 @@
                     `;
                     
                     modalOverlay.classList.add('is-visible');
+
+                    // Add event listener to the new close button
+                    document.getElementById('close-modal-btn').addEventListener('click', () => {
+                         modalOverlay.classList.remove('is-visible');
+                    });
                 });
             });
 
             modalOverlay.addEventListener('click', (e) => {
+                // Close modal if the overlay (background) is clicked
                 if (e.target === modalOverlay) {
                     modalOverlay.classList.remove('is-visible');
                 }
@@ -234,4 +258,3 @@
     </script>
 </body>
 </html>
-                            
